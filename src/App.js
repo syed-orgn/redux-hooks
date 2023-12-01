@@ -6,6 +6,7 @@ import { decNumber, incNumber } from './actions';
 function App() {
   const myState = useSelector((state) => state.changeTheNumber)
   const dispatch = useDispatch();
+  //Comment added
   return (
     <div className="App">
       <input value={myState} />
