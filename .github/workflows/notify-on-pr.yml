@@ -1,0 +1,39 @@
+name: Notify on PR
+
+on:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  send-email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: Install Dependencies
+        run: npm install @sendgrid/mail
+
+      - name: Notify User via Email
+        run: |
+          const sgMail = require('@sendgrid/mail');
+
+          sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+          const msg = {
+            to: 'zaidi.yam5@gmail.com', // Replace with the recipient's email address
+            from: 'syedabbasmuttaqizaidi@cedcommerce.com',   // Replace with the sender's email address
+            subject: 'New Pull Request',
+            text: 'A new pull request has been created!',
+          };
+
+          sgMail.send(msg);
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
