@@ -23,17 +23,25 @@ jobs:
 
       - name: Notify User via Email
         run: |
-          const sgMail = require('@sendgrid/mail');
+          try{
+            console.log('STARTING SCRIPT');
+            const sgMail = require('@sendgrid/mail');
+            console.log('ENDING SCRIPT');
 
-          sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+            sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+            console.log('SENDGRID_API_KEY:', process.env.SENDGRID_API_KEY);
 
-          const msg = {
+            const msg = {
             to: 'zaidi.yam5@gmail.com', // Replace with the recipient's email address
             from: 'syedabbasmuttaqizaidi@cedcommerce.com',   // Replace with the sender's email address
             subject: 'New Pull Request',
             text: 'A new pull request has been created!',
           };
+          catch(error){
+            console.error('Error:', error);
+          }
 
           sgMail.send(msg);
+          }
         env:
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
