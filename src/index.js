@@ -19,4 +19,4 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-// Added a new comment and altered it || added comment to master
+// Added a new comment and altered it || added comment to master // comment updated // added another commit
