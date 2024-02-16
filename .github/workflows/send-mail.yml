@@ -15,6 +15,4 @@ jobs:
           API_RESPONSE=$(curl -s -H "Authorization: token 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" "https://api.github.com/orgs/$ORG_NAME/members")
           echo "API Response:"
           echo "$API_RESPONSE"
-          MEMBERS=$(echo "$API_RESPONSE" | jq -r '.[].login')
-          echo "Organization Members:"
-          echo "$MEMBERS"
+          echo "API Response length: ${#API_RESPONSE}"
