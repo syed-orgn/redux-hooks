@@ -1,15 +1,19 @@
-name: CI
+name: Print Organization Members
 
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
-  build:
+  print-members:
     runs-on: ubuntu-latest
     steps:
-      - name: Run tests
+      - name: Get Organization Members
         run: |
-          CURRENT_USER=${GITHUB_ACTOR}
-          echo "Current user is: $CURRENT_USER"
+          ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}
+          ORG_NAME="your-organization-name"
+          MEMBERS=$(curl -s -H "Authorization: token $ACCESS_TOKEN" "https://api.github.com/orgs/$ORG_NAME/members" | jq -r '.[].login')
+          echo "Access Token: ${secrets.ACCESS_TOKEN} $secrets.ACCESS_TOKEN"
+          echo "Organization Members:"
+          echo "$MEMBERS"
