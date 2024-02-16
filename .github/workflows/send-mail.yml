@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send Email
-        uses: dawidd6/action-send-mail@v3
+        uses: dawidd6/action-send-mail@v2
         with:
           server_address: smtp.gmail.com
           server_port: 587
@@ -20,4 +20,5 @@ jobs:
           body: Code has been pushed to the repository.
           to: zaidi.yam5@gmail.com
           from: syedabbasmuttaqizaidi@cedcommerce.com
+ 
           # options: "--insecure" # This is necessary if using Gmail
