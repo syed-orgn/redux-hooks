@@ -20,8 +20,4 @@ jobs:
           body: Code has been pushed to the repository.
           to: zaidi.yam5@gmail.com
           from: syedabbasmuttaqizaidi@cedcommerce.com
-          secure: true
-          ignore_cert: true
-          convert_markdown: true
-          priority: low
           # options: "--insecure" # This is necessary if using Gmail
