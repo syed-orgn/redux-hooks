@@ -1,19 +1,23 @@
-name: Print Organization Members
+name: Send Email on Push
 
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
-  print-members:
+  send-email:
     runs-on: ubuntu-latest
     steps:
-      - name: Get Organization Members
-        run: | 
-          ORG_NAME="syed-orgn"
-          API_RESPONSE=$(curl -s -H "Authorization: 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" "https://api.github.com/orgs/$ORG_NAME/teams")
-          echo "API Response:"
-          echo "$API_RESPONSE"
-          echo "API Response length: ${#API_RESPONSE}"
-          echo "UserName:  ${{ secrets.EMAIL_USERNAME }}"
+      - name: Send Email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: New code pushed to repository
+          body: Code has been pushed to the repository.
+          to: zaidi.yam5@gmail.com
+          from: ${{ secrets.EMAIL_USERNAME }}
+          options: "--insecure" # This is necessary if using Gmail
