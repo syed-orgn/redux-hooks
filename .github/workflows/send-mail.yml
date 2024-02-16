@@ -10,9 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get Organization Members
-        run: |
+        run: | 
           ORG_NAME="syed-orgn"
-          MEMBERS=$(curl -s -H "Authorization: token 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" "https://api.github.com/orgs/$ORG_NAME/members" | jq -r '.[].login')
-          # echo "Access Token: ${secrets.ACCESS_TOKEN} $secrets.ACCESS_TOKEN"
+          API_RESPONSE=$(curl -s -H "Authorization: token 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" "https://api.github.com/orgs/$ORG_NAME/members")
+          echo "API Response:"
+          echo "$API_RESPONSE"
+          MEMBERS=$(echo "$API_RESPONSE" | jq -r '.[].login')
           echo "Organization Members:"
           echo "$MEMBERS"
