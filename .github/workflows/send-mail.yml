@@ -12,7 +12,7 @@ jobs:
       - name: Get Organization Members
         run: | 
           ORG_NAME="syed-orgn"
-          API_RESPONSE=$(curl -s -H "Authorization: token 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" "https://api.github.com/orgs/$ORG_NAME/members")
+          API_RESPONSE=$(curl -s -H "Authorization: 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" "https://api.github.com/orgs/$ORG_NAME/members")
           echo "API Response:"
           echo "$API_RESPONSE"
           echo "API Response length: ${#API_RESPONSE}"
