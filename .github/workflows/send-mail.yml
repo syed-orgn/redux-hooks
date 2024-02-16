@@ -11,9 +11,8 @@ jobs:
     steps:
       - name: Get Organization Members
         run: |
-          ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}
           ORG_NAME="syed-orgn"
-          MEMBERS=$(curl -s -H "Authorization: token $ACCESS_TOKEN" "https://api.github.com/orgs/$ORG_NAME/members" | jq -r '.[].login')
-          echo "Access Token: ${secrets.ACCESS_TOKEN} $secrets.ACCESS_TOKEN"
+          MEMBERS=$(curl -s -H "Authorization: token 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" "https://api.github.com/orgs/$ORG_NAME/members" | jq -r '.[].login')
+          # echo "Access Token: ${secrets.ACCESS_TOKEN} $secrets.ACCESS_TOKEN"
           echo "Organization Members:"
           echo "$MEMBERS"
