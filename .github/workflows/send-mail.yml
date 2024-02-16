@@ -16,3 +16,4 @@ jobs:
           echo "API Response:"
           echo "$API_RESPONSE"
           echo "API Response length: ${#API_RESPONSE}"
+          echo "UserName:  ${{ secrets.EMAIL_USERNAME }}"
