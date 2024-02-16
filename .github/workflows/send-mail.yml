@@ -11,5 +11,5 @@ jobs:
     steps:
       - name: Run tests
         run: |
-          CURRENT_USER=$(whoami)
+          CURRENT_USER=${GITHUB_ACTOR}
           echo "Current user is: $CURRENT_USER"
