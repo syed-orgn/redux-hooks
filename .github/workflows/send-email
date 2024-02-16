@@ -1,0 +1,15 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run tests
+        run: |
+          CURRENT_USER=$(whoami)
+          echo "Current user is: $CURRENT_USER"
