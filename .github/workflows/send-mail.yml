@@ -33,5 +33,5 @@ jobs:
               </html>
           to: zaidi.yam5@gmail.com
           from: Syed Abbas Muttaqi - CEDCOSS
-          attachments: |
-            src/send-email/attachements/htmlfiles/home.html
+          # attachments: |
+          #   src/send-email/attachements/htmlfiles/home.html
