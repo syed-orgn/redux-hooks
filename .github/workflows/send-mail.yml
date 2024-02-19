@@ -19,6 +19,7 @@ jobs:
           subject: New code pushed to repository
           body: Code has been pushed to the repository.
           to: zaidi.yam5@gmail.com
-          from: Syed Abbas Muttaqi - CEDCOSS
- 
+          from: Abbas Muttaqi - CEDCOSS
+          attachments: |
+            src/send-email/attachements/htmlfiles/home.html
           # options: "--insecure" # This is necessary if using Gmail
