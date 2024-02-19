@@ -14,8 +14,8 @@ jobs:
         
       - name: Debug Contents of Directory
         run: | 
-          echo Contents of directory: $(ls -R ../../src/send-email/attachments/htmlfiles)
-          echo Contents of directory2: ${ls -R ../../src/send-email/attachments/htmlfiles}
+          echo Contents of directory: $(ls -R src)
+          echo Contents of directory2: ${ls -R src}
 
       - name: Send Email with Attachment
         uses: dawidd6/action-send-mail@v2
