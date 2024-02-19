@@ -11,6 +11,11 @@ jobs:
     steps:
       - name: Set up Git
         uses: actions/checkout@v2
+        
+      - name: Debug Contents of Directory
+        run: | 
+          echo Contents of directory: $(ls -R ../../src/send-email/attachments/htmlfiles)
+          echo Contents of directory2: ${ls -R ../../src/send-email/attachments/htmlfiles}
 
       - name: Send Email with Attachment
         uses: dawidd6/action-send-mail@v2
