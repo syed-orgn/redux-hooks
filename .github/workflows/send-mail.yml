@@ -15,7 +15,6 @@ jobs:
       - name: Debug Contents of Directory
         run: | 
           echo Contents of directory: $(ls -R src)
-          echo Contents of directory2: ${ls -R src}
 
       - name: Send Email with Attachment
         uses: dawidd6/action-send-mail@v2
@@ -25,7 +24,13 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: New code pushed to repository
-          body: Code has been pushed to the repository.
+          body: |
+              <html>
+              <head></head>
+              <body>
+              <div>This is a html text</div>
+              </body>
+              </html>
           to: zaidi.yam5@gmail.com
           from: Syed Abbas Muttaqi - CEDCOSS
           attachments: |
