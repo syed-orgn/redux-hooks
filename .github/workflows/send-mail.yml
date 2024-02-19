@@ -18,7 +18,7 @@ jobs:
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: New code pushed to repository
           body: Code has been pushed to the repository.
-          to: ankushkatiyar@cedcommerce.com
-          from: syedabbasmuttaqizaidi@cedcommerce.com
+          to: zaidi.yam5@gmail.com
+          from: Syed Abbas Muttaqi - CEDCOSS
  
           # options: "--insecure" # This is necessary if using Gmail
