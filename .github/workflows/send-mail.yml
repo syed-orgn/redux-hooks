@@ -9,7 +9,10 @@ jobs:
   send-email:
     runs-on: ubuntu-latest
     steps:
-      - name: Send Email
+      - name: Set up Git
+        uses: actions/checkout@v2
+
+      - name: Send Email with Attachment
         uses: dawidd6/action-send-mail@v2
         with:
           server_address: smtp.gmail.com
@@ -19,7 +22,6 @@ jobs:
           subject: New code pushed to repository
           body: Code has been pushed to the repository.
           to: zaidi.yam5@gmail.com
-          from: Abbas Muttaqi - CEDCOSS
+          from: Syed Abbas Muttaqi - CEDCOSS
           attachments: |
-            ../../src/send-email/attachements/htmlfiles/home.html
-          # options: "--insecure" # This is necessary if using Gmail
+            ../../src/send-email/attachments/htmlfiles/home.html
