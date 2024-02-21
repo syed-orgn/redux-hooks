@@ -5,22 +5,22 @@ on:
     tags:
       - 'v*'
 
-permissions:
-  contents: write
-
 jobs:
   release:
     name: Release pushed tag
     runs-on: ubuntu-22.04
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
       - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
           tag: ${{ github.ref_name }}
         run: |
           gh release create "$tag" \
-            --title="Release Notes v1.0.0" \
-            --notes-from-tag
+              --title="Release Notes v1.0.0" \
+              --notes-from-tag
+
 
 
 # WORKING
