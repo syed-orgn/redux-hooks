@@ -3,7 +3,7 @@ name: Send Email on Push
 on:
   push:
     branches:
-      - master
+      - MAIN #change MAIN to master branch to run this action
 
 jobs:
   send-email:
