@@ -29,7 +29,7 @@ jobs:
           body: |
             Changelog: 
             ${{ steps.generate_changelog.outputs.changelog }}
-          draft: true
+          draft: false
           prerelease: false
 
       - name: Publish Release
