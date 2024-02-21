@@ -16,7 +16,7 @@ jobs:
       - name: Read Changelog File
         id: read_changelog
         run: |
-          changelog_content=$(cat ../../src/send-email/changelogs/changelog.md)
+          changelog_content=$(cat ./changelogs/changelog.md)
           echo "Changelog Content: $changelog_content"
           echo "::set-output name=changelog::$changelog_content"
 
