@@ -21,7 +21,6 @@ jobs:
           gh release create "$tag" \
               --repo="$GITHUB_REPOSITORY" \
               --title="Release Notes v1.0.0" \
-              --generate-notes \
               --notes-from-tag
 
 
