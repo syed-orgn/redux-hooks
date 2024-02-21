@@ -5,84 +5,20 @@ on:
     branches:
       - master
 
+permissions:
+  contents: write
+
 jobs:
   release:
-    runs-on: ubuntu-latest
+    name: Release pushed tag
+    runs-on: ubuntu-22.04
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Generate Changelog
-        uses: github-script-action/script@v6
-        env:
-          PREVIOUS_TAG: ${{ github.sha }}  # Or previous release tag
-          CURRENT_TAG: ${{ github.sha }}  # Or current commit SHA
-        with:
-          script: |
-            const fs = require('fs');
-
-            // Function to extract message and label from commit
-            function extractCommitInfo(commit) {
-              const message = commit.message.match(/\[.*?\](.*)/)[1];
-              const label = commit.commit.tree.tree.find(entry => entry.path === '.github/labels' && entry.mode === 'tree');
-              const labelName = label && label.commit.tree.tree.find(entry => entry.path === 'name' && entry.mode === 'blob').content.trim();
-              return labelName ? `${labelName}: ${message}` : message;
-            }
-
-            // Get tag information
-            const previousTag = process.env.PREVIOUS_TAG;
-            const currentTag = process.env.CURRENT_TAG;
-
-            // Get commits since previous tag
-            const commits = git.log({ from: previousTag, to: currentTag });
-
-            // Initialize changelog
-            let changelog = `# Release Notes for ${currentTag}\n`;
-
-            // Process each change type
-            const changeTypes = ['feat', 'fix', 'bug'];
-            for (const changeType of changeTypes) {
-              // Filter commits by labels
-              const changes = commits.filter(commit => commit.message.includes(`[${changeType}]`));
-
-              // Check if there are changes for this type
-              if (changes.length > 0) {
-                changelog += `\n## ${changeType}:\n`;
-                changelog += changes.map(extractCommitInfo).join('\n- ');
-              }
-            }
-
-            // Write changelog to file
-            fs.writeFileSync('changelog.md', changelog);
-
-            // Notify success
-            console.log('Changelog generated successfully!');
-
-
-
-      - name: Create Release Draft
-        id: create_release
-        uses: actions/create-release@v1
+      - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
-        with:
-          tag_name: ${{ github.sha }}  # Use dynamic tag based on commit SHA
-          release_name: "Release ${{ github.sha }}"  # Dynamic release name
-          body: |
-            **Changelog:**
-
-            ${{ steps.generate_changelog.outputs.changelog }}
-
-            # Consider adding more release notes details
-            # (e.g., links to issues, tested platforms)
-
-          draft: false  # Publish release automatically
-          prerelease: false  # Indicate a stable release
-
-      # Optional steps:
-      # - Upload artifacts (e.g., built products)
-      # - Send release notifications to external services
-
+          tag: ${{ github.ref_name }}
+        run: |
+          gh release create "$tag" \
+              --repo="$GITHUB_REPOSITORY" \
+              --title="${GITHUB_REPOSITORY#*/} ${tag#v}" \
+              --generate-notesjobs:
