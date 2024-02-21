@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Generate release notes
-        uses: ./actions/generate-release-notes.js # Replace with your action's path
+        uses: .github/workflows/release.yml # Replace with your action's path
         with:
           GITHUB_TOKEN: ${{ secrets.PAT }}
           tag: ${{ github.ref_name }}
