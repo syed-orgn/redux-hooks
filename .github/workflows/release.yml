@@ -1,4 +1,4 @@
-name: Release workflow
+name: Release Workflow
 
 on:
   push:
@@ -7,51 +7,21 @@ on:
 
 jobs:
   release:
-    name: Create release with detailed notes
-    runs-on: ubuntu-latest
+    name: Release pushed tag
+    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
-      - name: Generate release notes
-        uses: ./github/actions/generate-release-notes.js # Replace with your action's path
-        with:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
-          tag: ${{ github.ref_name }}
+      - name: Checkout repository
+        uses: actions/checkout@v3
       - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
+          tag: ${{ github.ref_name }}
         run: |
           gh release create "$tag" \
-              --title="Release Notes v$tag" \
-              -F ${{ steps.generate-release-notes.outputs.notes }} # Removed
+              --title="Release Notes v1.0.0" \
+              --notes-from-tag
 
-
-
-
-
-# name: Release Workflow
-
-# on:
-#   push:
-#     tags:
-#       - 'v*'
-
-# jobs:
-#   release:
-#     name: Release pushed tag
-#     runs-on: ubuntu-22.04
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v3
-#       - name: Create release
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.PAT }}
-#           tag: ${{ github.ref_name }}
-#         run: |
-#           gh release create "$tag" \
-#               --title="Release Notes v1.0.0" \
-#               --notes-from-tag
-
-
+              
 
 # WORKING
 # name: Release Workflow
