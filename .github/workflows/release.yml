@@ -27,7 +27,7 @@ jobs:
           tag_name: v1.0.0
           release_name: Release 1.0.0
           body: |
-            Changelog: 
+            Changeloged: 
             ${{ steps.generate_changelog.outputs.changelog }}
           draft: false
           prerelease: false
