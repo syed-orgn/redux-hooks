@@ -13,30 +13,25 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Get Previous Commit SHA
-        id: get_previous_commit
-        run: |
-          previous_commit=$(git rev-parse HEAD^ 2>/dev/null || echo "")
-          echo "::set-output name=previous_commit::$previous_commit"
-
       - name: Generate Release Notes
         id: generate_release_notes
-        if: steps.get_previous_commit.outputs.previous_commit != ''
         run: |
-          release_notes=$(git log --pretty=format:"- %s" "$previous_commit"..HEAD)
+          previous_commit=$(git log --pretty=format:%H --skip=1 -n 1)
+          current_commit=$(git log --pretty=format:%H -n 1)
+          release_notes=$(git log --pretty=format:"- %s" $previous_commit..$current_commit)
           echo "Release Notes: $release_notes"
           echo "::set-output name=release_notes::$release_notes"
 
-      # - name: Create Release Draft
-      #   id: create_release
-      #   uses: actions/create-release@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.PAT }}
-      #   with:
-      #     tag_name: v1.0.0
-      #     release_name: Release 1.0.0
-      #     body: |
-      #       Changeloged:
-      #       ${{ steps.generate_release_notes.outputs.release_notes }}
-      #     draft: false
-      #     prerelease: false
+      - name: Create Release Draft
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+        with:
+          tag_name: v1.0.0
+          release_name: Release 1.0.0
+          body: |
+            Changeloged:
+            ${{ steps.generate_release_notes.outputs.release_notes }}
+          draft: false
+          prerelease: false
