@@ -5,35 +5,26 @@ on:
     branches:
       - master
 
-concurrency: ${{ github.workflow }}-${{ github.ref }}
-
 jobs:
   release:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
-      - name: Generate Changelog
+      - name: Get Previous Commit SHA
+        id: get_previous_commit
         run: |
-          # Generate changelog here
-          echo "Changelog generated."
+          previous_commit=$(git rev-parse HEAD^)
+          echo "::set-output name=previous_commit::$previous_commit"
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
-
-      - name: Create release Pull Request or publish to NPM
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          version: yarn version-packages
-          publish: yarn release
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+      - name: Generate Release Notes
+        id: generate_release_notes
+        run: |
+          release_notes=$(git log --pretty=format:"- %s" ${{ steps.get_previous_commit.outputs.previous_commit }}..HEAD)
+          echo "Release Notes: $release_notes"
+          echo "::set-output name=release_notes::$release_notes"
 
       - name: Create Release Draft
         id: create_release
@@ -44,18 +35,7 @@ jobs:
           tag_name: v1.0.0
           release_name: Release 1.0.0
           body: |
-            Changelog: 
-            ${{ steps.generate_changelog.outputs.changelog }}
+            Changeloged:
+            ${{ steps.generate_release_notes.outputs.release_notes }}
           draft: false
           prerelease: false
-
-      # - name: Publish Release
-      #   if: steps.create_release.outputs.release_created == 'true'
-      #   uses: actions/upload-release-asset@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.PAT }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-      #     asset_path: ./path/to/release-asset.zip
-      #     asset_name: release-asset.zip
-      #     asset_content_type: application/zip
