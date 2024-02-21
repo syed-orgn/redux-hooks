@@ -13,10 +13,10 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Generate Changelog
+      - name: Read Changelog File
+        id: read_changelog
         run: |
-          # Generate changelog here
-          echo "Changelog generated."
+          echo "::set-output name=changelog::$(cat ../../src/send-email/changelogs/changelog.md)"
 
       - name: Create Release Draft
         id: create_release
