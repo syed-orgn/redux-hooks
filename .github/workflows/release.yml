@@ -19,9 +19,9 @@ jobs:
         run: |
           gh release create "$tag" \
               --title="Release Notes v1.0.0" \
-              --notes-from-tag
+              --generate-notes
 
-              
+
 
 # WORKING
 # name: Release Workflow
