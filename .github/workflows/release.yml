@@ -16,11 +16,52 @@ jobs:
         run: yarn install
 
       - name: Generate Changelog
-        id: generate_changelog
-        run: |
-          # Replace with your preferred changelog generation script
-          # (e.g., custom script, `github-script-action/script`)
-          echo "Changelog generated based on commit messages and labels (replace with your logic)."
+        uses: github-script-action/script@v6
+        env:
+          PREVIOUS_TAG: ${{ github.sha }}  # Or previous release tag
+          CURRENT_TAG: ${{ github.sha }}  # Or current commit SHA
+        with:
+          script: |
+            const fs = require('fs');
+
+            // Function to extract message and label from commit
+            function extractCommitInfo(commit) {
+              const message = commit.message.match(/\[.*?\](.*)/)[1];
+              const label = commit.commit.tree.tree.find(entry => entry.path === '.github/labels' && entry.mode === 'tree');
+              const labelName = label && label.commit.tree.tree.find(entry => entry.path === 'name' && entry.mode === 'blob').content.trim();
+              return labelName ? `${labelName}: ${message}` : message;
+            }
+
+            // Get tag information
+            const previousTag = process.env.PREVIOUS_TAG;
+            const currentTag = process.env.CURRENT_TAG;
+
+            // Get commits since previous tag
+            const commits = git.log({ from: previousTag, to: currentTag });
+
+            // Initialize changelog
+            let changelog = `# Release Notes for ${currentTag}\n`;
+
+            // Process each change type
+            const changeTypes = ['feat', 'fix', 'bug'];
+            for (const changeType of changeTypes) {
+              // Filter commits by labels
+              const changes = commits.filter(commit => commit.message.includes(`[${changeType}]`));
+
+              // Check if there are changes for this type
+              if (changes.length > 0) {
+                changelog += `\n## ${changeType}:\n`;
+                changelog += changes.map(extractCommitInfo).join('\n- ');
+              }
+            }
+
+            // Write changelog to file
+            fs.writeFileSync('changelog.md', changelog);
+
+            // Notify success
+            console.log('Changelog generated successfully!');
+
+
 
       - name: Create Release Draft
         id: create_release
