@@ -23,7 +23,7 @@ jobs:
         id: generate_release_notes
         if: steps.get_previous_commit.outputs.previous_commit != ''
         run: |
-          release_notes=$(git log --pretty=format:"- %s" ${{ steps.get_previous_commit.outputs.previous_commit }}..HEAD)
+          release_notes=$(git log --pretty=format:"- %s" "$previous_commit"..HEAD)
           echo "Release Notes: $release_notes"
           echo "::set-output name=release_notes::$release_notes"
 
