@@ -11,16 +11,22 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Generate Release Notes
         id: generate_release_notes
+        uses: ./release-notes.sh  # Path to your custom script
+        with:
+          previous_tag: ${{ github.sha }}  # Current commit SHA as previous tag
+          current_tag: ${{ github.sha }}   # Current commit SHA as current tag
+          output_file: changelog.md     # File to store release notes
+
+      - name: Read Changelog File
+        id: read_changelog
         run: |
-          previous_commit=$(git log --pretty=format:%H --skip=1 -n 1)
-          current_commit=$(git log --pretty=format:%H -n 1)
-          release_notes=$(git log --pretty=format:"- %s" $previous_commit..$current_commit)
-          echo "Release Notes: $release_notes"
-          echo "::set-output name=release_notes::$release_notes"
+          changelog_content=$(cat changelog.md)
+          echo "Changelog Content: $changelog_content"
+          echo "::set-output name=changelog::$changelog_content"
 
       - name: Create Release Draft
         id: create_release
@@ -28,10 +34,49 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
         with:
-          tag_name: v1.0.0
-          release_name: Release 1.0.0
+          tag_name: ${{ steps.generate_release_notes.outputs.release_tag }}  # Use dynamic tag from script
+          release_name: "Release ${{ steps.generate_release_notes.outputs.release_tag }}"  # Dynamic release name
           body: |
-            Changeloged:
-            ${{ steps.generate_release_notes.outputs.release_notes }}
+            **Changelog:**
+
+            ${{ steps.read_changelog.outputs.changelog }}
+
           draft: false
           prerelease: false
+
+# Create your custom script `release-notes.sh` in the repository:
+
+#!/bin/bash
+
+# set -e
+
+# # ... (your script logic here) ...
+
+# # Example logic:
+
+# previous_tag="$1"
+# current_tag="$2"
+# output_file="$3"
+
+# # Replace with your preferred diff tool (e.g., git diff, gpatch)
+# changes=$(git diff --name-only $previous_tag...$current_tag)
+
+# if [[ -z "$changes" ]]; then
+#   echo "No changes found since previous tag." > "$output_file"
+#   exit 0
+# fi
+
+# release_tag=$(git describe --abbrev=0 --tags --first-parent $(git rev-parse $previous_tag^)~^1)
+# echo "# Release Notes for $release_tag" > "$output_file"
+
+# # Add more detailed changelog generation (e.g., titles, categories, issue references)
+# for change in $changes; do
+#   # Parse commit message for details
+#   commit_message=$(git show -s --format=%B $previous_tag^..$current_tag | grep -e "$change")
+#   # Process commit message to extract relevant information
+#   # ...
+#   echo "- $commit_message" >> "$output_file"
+# done
+
+# echo "Release notes generated in $output_file."
+
