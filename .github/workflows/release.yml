@@ -5,20 +5,38 @@ on:
     branches:
       - master
 
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
   release:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Read Changelog File
-        id: read_changelog
+      - name: Generate Changelog
         run: |
-          changelog_content=$(cat changelogs/changelog.md)
-          echo "Changelog Content: $changelog_content"
-          echo "::set-output name=changelog::$changelog_content"
+          # Generate changelog here
+          echo "Changelog generated."
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: "yarn"
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Create release Pull Request or publish to NPM
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          version: yarn version-packages
+          publish: yarn release
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
 
       - name: Create Release Draft
         id: create_release
@@ -29,7 +47,7 @@ jobs:
           tag_name: v1.0.0
           release_name: Release 1.0.0
           body: |
-            Changeloged: 
+            Changelog: 
             ${{ steps.generate_changelog.outputs.changelog }}
           draft: false
           prerelease: false
