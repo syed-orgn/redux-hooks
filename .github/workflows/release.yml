@@ -13,7 +13,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: create release with last commit
-        if: steps.changelog.outputs.skipped == 'false'
         uses: ncipollo/release-action@v1
         with:
           token: ${{ secrets.PAT }}
