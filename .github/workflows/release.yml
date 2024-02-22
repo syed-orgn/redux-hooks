@@ -6,6 +6,10 @@ on:
 
 jobs:
   release:
+    permissions:
+        contents: write
+        issues: write
+        pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -24,7 +28,7 @@ jobs:
       - name: Run semantic-release
         run: npx semantic-release --repository-url https://github.com/syed-orgn/redux-hooks
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
 
