@@ -31,7 +31,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install conventional-changelog
-        run: npm install conventional-changelog --save-dev
+        run: npm install -g conventional-changelog
+
+      - name: Add npm bin directory to PATH
+        run: echo "export PATH=$PATH:~/.npm/_npx" >> $HOME/.bashrc && source $HOME/.bashrc
+
 
       - name: Generate release notes
         run: npm conventional-changelog
