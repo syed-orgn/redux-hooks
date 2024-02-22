@@ -22,7 +22,7 @@ jobs:
 
       # Run semantic-release
       - name: Run semantic-release
-        run: npx semantic-release
+        run: npx semantic-release --repository-url https://github.com/syed-orgn/redux-hooks
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
 
