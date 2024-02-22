@@ -24,19 +24,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install conventional-changelog
-        run: sudo npm install conventional-changelog
-
-      - name: Generate release notes
-        run:  npm conventional-changelog -p angular -i CHANGELOG.md -u
-
       # Run semantic-release
       - name: Run semantic-release
         run: npx semantic-release  
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-   
+
 
 
 # WORKING 3
