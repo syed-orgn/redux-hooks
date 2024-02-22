@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@semantic-release/commit-analyzer": "^11.1.0",
-    "@semantic-release/release-notes-generator": "^12.1.0",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
@@ -21,11 +19,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "commit": "git cz"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   },
   "eslintConfig": {
     "extends": [
@@ -46,10 +39,10 @@
     ]
   },
   "devDependencies": {
-    "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^9.2.6",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
-    "semantic-release": "^23.0.2"
+    "semantic-release": "^23.0.2",
+    "@semantic-release/commit-analyzer": "^11.1.0",
+    "@semantic-release/release-notes-generator": "^12.1.0"
   }
 }
