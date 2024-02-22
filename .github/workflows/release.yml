@@ -2,24 +2,25 @@ name: Release
 
 on:
   push:
-    tags:
-      - "v*"
+    branches: [ master ]
 
 jobs:
   release:
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 20
-      - run: npx semantic-release
+      - uses: actions/checkout@v3
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Run semantic-release
+      - name: Run semantic-release
+        run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+
+
 
 
 # WORKING 3
