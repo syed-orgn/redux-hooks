@@ -12,14 +12,44 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Create release
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
-          tag: ${{ github.ref_name }}
-        run: |
-          gh release create "$tag" \
-              --title="Release Notes v1.0.0" \
-              --generate-notes
+      - name: create release with last commit
+        if: steps.changelog.outputs.skipped == 'false'
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.PAT }}
+          tag: ${{ steps.changelog.outputs.tag }}
+          name: ${{ steps.changelog.outputs.tag }}
+          body: ${{ steps.changelog.outputs.clean_changelog }}
+
+
+
+
+
+
+# 
+
+# name: Release Workflow
+
+# on:
+#   push:
+#     tags:
+#       - 'v*'
+
+# jobs:
+#   release:
+#     name: Release pushed tag
+#     runs-on: ubuntu-22.04
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v3
+#       - name: Create release
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.PAT }}
+#           tag: ${{ github.ref_name }}
+#         run: |
+#           gh release create "$tag" \
+#               --title="Release Notes v1.0.0" \
+#               --generate-notes
 
 
 
