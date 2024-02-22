@@ -1,31 +1,57 @@
+name: Release
+
 on:
   push:
     tags:
-      - 'v*'
-
-name: Create Release
+      - "v*"
 
 jobs:
-
-  create-github-release:
-    name: Create GitHub Release
-    runs-on: ubuntu-latest
+  release:
     permissions:
       contents: write
+      issues: write
+      pull-requests: write
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Create Release
-        run: gh release create ${{ github.ref }} --generate-notes
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - run: npm ci
+      - run: npm run build
+      - run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+# WORKING 3
+# on:
+#   push:
+#     tags:
+#       - 'v*'
+
+# name: Create Release
+
+# jobs:
+
+#   create-github-release:
+#     name: Create GitHub Release
+#     runs-on: ubuntu-latest
+#     permissions:
+#       contents: write
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+#       - name: Create Release
+#         run: gh release create ${{ github.ref }} --generate-notes
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.PAT }}
 
 
 
 
 
-
-
+# WORKING 2
 # name: Release Workflow
 
 # on:
@@ -51,7 +77,7 @@ jobs:
 
 
 
-# WORKING
+# WORKING 1
 # name: Release Workflow
 
 # on:
