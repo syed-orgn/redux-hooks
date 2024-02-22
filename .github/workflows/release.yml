@@ -27,12 +27,8 @@ jobs:
       - name: Install conventional-changelog
         run: npm install -g conventional-changelog
 
-      - name: Add npm global bin directory to PATH
-        run : echo "::add-path::$HOME/.npm-global/bin"
-
       - name: Generate release notes
         run: npm conventional-changelog
-
 
       # Run semantic-release
       - name: Run semantic-release
