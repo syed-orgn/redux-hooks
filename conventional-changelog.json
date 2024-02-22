@@ -1,0 +1,16 @@
+{
+    "types": [
+        {
+            "type": "feat",
+            "section": "Minor Changes"
+        },
+        {
+            "type": "fix",
+            "section": "Patch Changes"
+        }
+    ],
+    "writerOpts": {
+        "commitsPerSection": true,
+        "mainTemplate": "{section}\n- <commit-id> Thanks <author-name> - <message>"
+    }
+}

@@ -30,6 +30,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Install conventional-changelog
+        run: npm install conventional-changelog --save-dev
+
+      - name: Generate release notes
+        run: npx conventional-changelog -p angular -i CHANGELOG.md -u
 
 
 
