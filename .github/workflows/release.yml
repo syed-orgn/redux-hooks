@@ -34,7 +34,7 @@ jobs:
         run: npm install conventional-changelog --save-dev
 
       - name: Generate release notes
-        run: npx conventional-changelog -p angular -i CHANGELOG.md -u
+        run: npm conventional-changelog -p angular -i CHANGELOG.md -u
 
 
 
