@@ -9,6 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      
+      # Install Node verions 20 
+      - name: Set up Node.js 20.8.1
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.8.1'
 
       # Install dependencies
       - name: Install dependencies
@@ -16,8 +22,6 @@ jobs:
 
       # Run semantic-release
       - name: Run semantic-release
-        with:
-            node-version: 20
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
