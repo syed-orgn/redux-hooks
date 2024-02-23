@@ -15,6 +15,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Fetch Origin
+        run: git fetch origin
+
       - name: List tags
         run: git tag
 
