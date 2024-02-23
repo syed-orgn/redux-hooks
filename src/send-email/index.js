@@ -8,3 +8,4 @@ console.log("Added another console")
 //DOCS ADDED
 
 // Major changes in Index file
+// Major changes in Index file
