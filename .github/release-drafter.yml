@@ -1,5 +1,5 @@
 # Configuration for Release Drafter: https://github.com/toolmantim/release-drafter
-name-template: '@reduxhooks/$MAJOR.$MINOR.$PATCH'
+name-template: '@reduxhooks/$MAJOR $MINOR $PATCH'
 tag-template: v$NEXT_PATCH_VERSION
 version-template: '$MAJOR.$MINOR.$PATCH'
 # Emoji reference: https://gitmoji.carloscuesta.me/
