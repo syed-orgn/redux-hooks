@@ -5,3 +5,4 @@ console.log("Another One added")
 console.log("Added another console")
 // on:
 //   workflow_dispatch:
+//DOCS ADDED
