@@ -39,22 +39,23 @@ jobs:
         #   disable-autolabeler: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-  semantic_release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
 
-      # Install Node.js
-      - name: Setup Node.js
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Fetch Origin
+        run: git fetch origin
+
+      - name: List tags
+        run: git tag
+
+      - name: Setup Node.js 20
         uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: "20"
 
-      # Install dependencies
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm install
 
-      # Run semantic-release
       - name: Run semantic-release
         run: npx semantic-release
