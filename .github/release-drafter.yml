@@ -41,6 +41,7 @@ exclude-labels:
 change-template: '- #$NUMBER: thanks @$AUTHOR - $TITLE'
 template: |
   <!-- Optional: add a release summary here -->
+  $TITLE
   $CHANGES
 
 
