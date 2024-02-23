@@ -29,7 +29,7 @@ categories:
   - title: 🚦 Tests
     labels:
       - test
-  - title: ✍ Other changes
+  # - title: ✍ Other changes
   # Default label used by Dependabot
   - title: 📦 Dependency updates
     labels:
