@@ -26,6 +26,12 @@ jobs:
       - name: Generate release notes
         id: release-notes
         run: |
+          # Check if there are any tags in the repository
+          if [ -z "$(git tag)" ]; then
+            echo "No tags found in the repository."
+            exit 1
+          fi
+
           # Get the latest version tag
           latest_tag=$(git describe --tags --abbrev=0)
 
@@ -43,6 +49,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_NOTES: ${{ steps.release-notes.outputs.release_notes }}
+
 
 
 # WORKING
