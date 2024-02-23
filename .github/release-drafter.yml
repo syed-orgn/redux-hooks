@@ -1,18 +1,18 @@
 # Configuration for Release Drafter: https://github.com/toolmantim/release-drafter
-version-resolver:
-  major:
-    labels:
-      - 'major'
-  minor:
-    labels:
-      - 'minor'
-  patch:
-    labels:
-      - 'patch'
-  default: major
+# version-resolver:
+#   major:
+#     labels:
+#       - 'major'
+#   minor:
+#     labels:
+#       - 'minor'
+#   patch:
+#     labels:
+#       - 'patch'
+#   default: major
 
 name-template: '@reduxhooks/$RESOLVED_VERSION'
-tag-template: 'v$RESOLVED_VERSION'
+tag-template: '@reduxhooks/$RESOLVED_VERSION'
 
 # Emoji reference: https://gitmoji.carloscuesta.me/
 categories:
