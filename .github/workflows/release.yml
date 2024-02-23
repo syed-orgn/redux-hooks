@@ -2,39 +2,30 @@ name: Release
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   release:
     permissions:
-        contents: write
-        issues: write
-        pull-requests: write
+      contents: write
+      issues: write
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
-      # Install Node verions 20 
+
+      # Install Node verions 20
       - name: Set up Node.js 20
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: "20"
 
       # Install dependencies
       - name: Install dependencies
         run: npm install
 
       # Run semantic-release
-      # - name: Run semantic-release
-      #   run: npx semantic-release  
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Run semantic-release
-        run: |
-          npx semantic-release \
-            --plugins @semantic-release/commit-analyzer,@semantic-release/release-notes-generator \
-            --preset angular \
-            --release-notes-generator angular \
+        run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
