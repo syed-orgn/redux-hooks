@@ -23,7 +23,7 @@ categories:
   - title: 🚀 New features and improvements
     labels:
       - enhancement
-      - minor
+      - 'minor'
   - title: 🐛 Bug fixes
     labels:
       - bug
