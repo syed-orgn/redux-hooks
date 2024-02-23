@@ -7,9 +7,11 @@ categories:
   - title: 💥 Breaking changes
     labels:
       - breaking
+      - major
   - title: 🚀 New features and improvements
     labels:
       - enhancement
+      - minor
   - title: 🐛 Bug fixes
     labels:
       - bug
@@ -41,7 +43,6 @@ exclude-labels:
 change-template: '- #$NUMBER: thanks @$AUTHOR - $TITLE'
 template: |
   <!-- Optional: add a release summary here -->
-  $TITLE
   $CHANGES
 
 
@@ -59,3 +60,15 @@ autolabeler:
   - label: 'enhancement'
     branch:
       - '/feature\/.+/'
+
+version-resolver:
+  major:
+    labels:
+      - 'major'
+  minor:
+    labels:
+      - 'minor'
+  patch:
+    labels:
+      - 'patch'
+  default: patch
