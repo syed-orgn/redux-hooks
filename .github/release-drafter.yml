@@ -1,4 +1,16 @@
 # Configuration for Release Drafter: https://github.com/toolmantim/release-drafter
+version-resolver:
+  major:
+    labels:
+      - 'major'
+  minor:
+    labels:
+      - 'minor'
+  patch:
+    labels:
+      - 'patch'
+  default: major
+
 name-template: '@reduxhooks/$RESOLVED_VERSION'
 tag-template: 'v$RESOLVED_VERSION'
 
@@ -60,15 +72,3 @@ autolabeler:
   - label: 'enhancement'
     branch:
       - '/feature\/.+/'
-
-version-resolver:
-  major:
-    labels:
-      - 'major'
-  minor:
-    labels:
-      - 'minor'
-  patch:
-    labels:
-      - 'patch'
-  default: patch
