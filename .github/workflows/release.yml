@@ -33,7 +33,7 @@ jobs:
         id: release-notes
         run: |
           # Get the latest version tag
-          latest_tag=$(git describe --tags --abbrev=0)
+          latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1))
 
           # Get the previous version tag
           previous_tag=$(git describe --tags --abbrev=0 $latest_tag^)
@@ -49,6 +49,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_NOTES: ${{ steps.release-notes.outputs.release_notes }}
+
 
 
 
