@@ -38,24 +38,7 @@ jobs:
           previous_tag=$(git describe --tags --abbrev=0 $latest_tag^)
 
           # Generate release notes between current and previous version
-          release_notes=""
-
-          # Get the commit hashes and messages between the previous and latest tags
-          commit_logs=$(git log --pretty=format:"%h %b" $previous_tag..$latest_tag)
-
-          # Iterate over each commit log
-          while IFS= read -r line; do
-            commit_hash=$(echo "$line" | awk '{print $1}')
-            commit_msg=$(echo "$line" | cut -d ' ' -f 2-)
-            # Check if the commit message contains "feat:" or "fix:"
-            if [[ $commit_msg == *"feat:"* ]]; then
-              release_notes+="Features\n"
-              release_notes+="  #$commit_hash - $commit_msg\n"
-            elif [[ $commit_msg == *"fix:"* ]]; then
-              release_notes+="Bug Fixes\n"
-              release_notes+="  #$commit_hash - $commit_msg\n"
-            fi
-          done <<< "$commit_logs"
+          release_notes=$(git log --pretty=format:'%h %s (thanks %an)' --grep='feat:' --grep='fix:' $previous_tag..$latest_tag)
 
           # Set the output variable for later steps
           echo "::set-output name=release_notes::$release_notes"
@@ -65,6 +48,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_NOTES: ${{ steps.release-notes.outputs.release_notes }}
+
 # name: Release
 
 # on:
