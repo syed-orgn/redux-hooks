@@ -31,6 +31,10 @@ jobs:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run semantic-release
-        run: npx semantic-release -p --analyze-commits --generate-notes
+        run: |
+          npx semantic-release \
+            --plugins @semantic-release/commit-analyzer,@semantic-release/release-notes-generator,@semantic-release/github,@semantic-release/git \
+            --preset angular \
+            --release-notes-generator angular \
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
