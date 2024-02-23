@@ -12,20 +12,68 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      # Install Node verions 20
-      - name: Set up Node.js 20
+      - name: Setup Node.js 20
         uses: actions/setup-node@v3
         with:
           node-version: "20"
 
-      # Install dependencies
       - name: Install dependencies
         run: npm install
 
-      # Run semantic-release
+      - name: Generate release notes
+        id: release-notes
+        run: |
+          # Get the latest version tag
+          latest_tag=$(git describe --tags --abbrev=0)
+
+          # Get the previous version tag
+          previous_tag=$(git describe --tags --abbrev=0 $latest_tag^)
+
+          # Generate release notes between current and previous version
+          release_notes=$(git log --oneline --grep='feat:' --grep='fix:' $previous_tag..$latest_tag)
+
+          # Set the output variable for later steps
+          echo "::set-output name=release_notes::$release_notes"
+
       - name: Run semantic-release
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_NOTES: ${{ steps.release-notes.outputs.release_notes }}
+
+
+# WORKING
+# name: Release
+
+# on:
+#   push:
+#     branches: [master]
+
+# jobs:
+#   release:
+#     permissions:
+#       contents: write
+#       issues: write
+#       pull-requests: write
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+
+#       # Install Node verions 20
+#       - name: Set up Node.js 20
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: "20"
+
+#       # Install dependencies
+#       - name: Install dependencies
+#         run: npm install
+
+#       # Run semantic-release
+#       - name: Run semantic-release
+#         run: npx semantic-release
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
