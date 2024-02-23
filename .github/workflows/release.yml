@@ -48,7 +48,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_NOTES: ${{ steps.release-notes.outputs.release_notes }}
         run: |
-          npx semantic-release --release-notes "$RELEASE_NOTES"
+          npx semantic-release --release-notes "$release_notes"
 
 
 
