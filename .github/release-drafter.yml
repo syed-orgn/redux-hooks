@@ -11,9 +11,6 @@
 #       - 'patch'
 #   default: major
 
-name-template: '@reduxhooks/$RESOLVED_VERSION'
-tag-template: '@reduxhooks/$RESOLVED_VERSION'
-
 # Emoji reference: https://gitmoji.carloscuesta.me/
 categories:
   - title: 💥 Breaking changes
@@ -72,3 +69,8 @@ autolabeler:
   - label: 'enhancement'
     branch:
       - '/feature\/.+/'
+
+
+
+name-template: '@reduxhooks/$RESOLVED_VERSION'
+tag-template: '@reduxhooks/$RESOLVED_VERSION'
