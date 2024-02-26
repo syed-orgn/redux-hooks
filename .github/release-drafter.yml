@@ -11,8 +11,8 @@
 #       - 'patch'
 #   default: major
 
-name-template: '@reduxhooks/$RESOLVED_VERSION'
-tag-template: '@reduxhooks/$RESOLVED_VERSION'
+# name-template: '@reduxhooks/$RESOLVED_VERSION'
+# tag-template: '@reduxhooks/$RESOLVED_VERSION'
 
 # Emoji reference: https://gitmoji.carloscuesta.me/
 categories:
