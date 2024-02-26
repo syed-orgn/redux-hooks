@@ -1,0 +1,17 @@
+{
+    "branches": ["master"],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      {
+        "name": "@semantic-release/release-notes-generator",
+        "parserOpts": {
+          " changelogFile": ".github/CHANGELOG.md"
+        }
+      },
+      {
+        "name": "@semantic-release/github",
+        "assets": ["./dist/*.tar.gz"]  
+      }
+    ]
+  }
+  

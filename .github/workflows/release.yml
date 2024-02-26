@@ -1,39 +1,38 @@
-name: Release Notes
+name: Release
 
 on:
   push:
-    branches:
-      - main
-
-concurrency: ${{ github.workflow }}-${{ github.ref }}
+    branches: [ master ]
 
 jobs:
   release:
-    name: Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      packages: write
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Setup Node.js 20
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
+      # Run Release Drafter to generate release notes
+      - name: Generate release notes
+        uses: release-drafter/release-drafter@v5
 
-      - name: Install Dependencies
-        run: yarn
+      # Analyze commits and generate release type (major, minor, patch)
+      - name: Analyze commits
+        run: npx @semantic-release/commit-analyzer
 
-      - name: Semantic Versioning
-        id: versioning
-        uses: PaulMatch/semantic-version@4.0.2
-        with:
-          branch: master
-          tag_prefix: "v"
-          major_pattern: "BREAKING CHANGE:"
-          minor_pattern: "feat:"
-          format: "v${major}.${minor}.${patch}-prerelease${increment}" 
+      # Generate release notes based on commits and Release Drafter output
+      - name: Generate release notes
+        run: npx @semantic-release/release-notes-generator
+
+      # Generate and publish the release
+      - name: Release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Replace with your token secret
+        run: npx semantic-release
+
+
 
 
 
