@@ -29,10 +29,14 @@ jobs:
       # Analyze commits and generate release type (major, minor, patch)
       - name: Analyze commits
         run: npx @semantic-release/commit-analyzer
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Replace with your token secret
 
       # Generate release notes based on commits and Release Drafter output
-      - name: Generate release notes
-        run: npx @semantic-release/release-notes-generator
+      # - name: Generate release notes
+      #   run: npx @semantic-release/release-notes-generator
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Replace with your token secret
 
       # Generate and publish the release
       - name: Release
