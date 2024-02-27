@@ -68,15 +68,15 @@ autolabeler:
 
   - label: 'major'
     branch:
-      - '/major\/.+/'
+      - '/major-release\/.+/'
 
   - label: 'minor'
     branch:
-      - '/feature\/.+/'
+      - '/minor-release\/.+/'
 
   - label: 'patch'
     branch:
-      - '/fix\/.+/'
+      - '/patch-release\/.+/'
 
 
 name-template: '@reduxhooks/$RESOLVED_VERSION'
