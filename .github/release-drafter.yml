@@ -59,7 +59,7 @@ template: |
   <!-- Optional: add a release summary here -->
   $CHANGES
 
-header: $REPOSITORY released this at ${{env.RELEASE_TIME}} $env.RELEASE_TIME
+header: $REPOSITORY released this
 
 autolabeler:
   - label: 'documentation'
