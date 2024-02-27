@@ -39,7 +39,8 @@ jobs:
           origin_time=$(git remote -v)
           echo "origin_time ISSSS $origin_time" 
           # Get the release commit's timestamp
-          release_commit_sha=$(git rev-parse origin/main^)
+          release_commit_sha=$(git rev-parse origin/master^)
+          echo "$release_commit_sha TESTING"
           release_time=$(git show -s --format=%ci $release_commit_sha)
 
           # Calculate and store relative time
