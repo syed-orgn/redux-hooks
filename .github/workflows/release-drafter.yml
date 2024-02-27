@@ -34,6 +34,8 @@ jobs:
       - name: Calculate release time
         run: |
           # Get the release commit's timestamp
+          origin_time=${git origin -v}
+          echo "origin_time =$origin_time"
           release_commit_sha=$(git rev-parse origin/master^)
           release_time=$(git show -s --format=%ci $release_commit_sha)
 
