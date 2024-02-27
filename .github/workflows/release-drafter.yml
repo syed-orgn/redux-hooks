@@ -31,6 +31,20 @@ jobs:
       #  run: |
       #    echo "GHE_HOST=${GITHUB_SERVER_URL##https:\/\/}" >> $GITHUB_ENV
       # Drafts your next Release notes as Pull Requests are merged into "master"
+      - name: Check branch name
+        run: |
+          if [[ ${{ github.ref }} == refs/heads/* ]]; then
+            branch_name=${{ github.ref }}
+            branch_name=${branch_name#refs/heads/}
+            if [[ $branch_name =~ major|minor|patch ]]; then
+              echo "Branch name contains 'major', 'minor', or 'patch'. Proceeding with release draft update."
+            else
+              echo "Branch name does not contain 'major', 'minor', or 'patch'. Skipping release draft update."
+              exit 1
+            fi
+          fi
+      # Drafts your next Release notes as Pull Requests are merged into "master"
+
       - uses: release-drafter/release-drafter@v5
         # (Optional) specify config name to use, relative to .github/. Default: release-drafter.yml
         # with:
