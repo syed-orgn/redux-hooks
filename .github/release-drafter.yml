@@ -59,7 +59,7 @@ template: |
   <!-- Optional: add a release summary here -->
   $CHANGES
 
-header: ${script('node generateHeader.js')}
+header: $REPOSITORY released this at env.RELEASE_TIME
 
 autolabeler:
   - label: 'documentation'
