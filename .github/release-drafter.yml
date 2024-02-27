@@ -59,8 +59,6 @@ template: |
   <!-- Optional: add a release summary here -->
   $CHANGES
 
-header: $REPOSITORY released this
-
 autolabeler:
   - label: 'documentation'
     files:
