@@ -33,8 +33,8 @@ jobs:
       # Drafts your next Release notes as Pull Requests are merged into "master"
       - name: Check branch name
         run: |
-          branch_name=${{ github.event.pull_request.head.ref }}
-          echo "$branch_name dshfkjasdfhkasdfhksadhf"
+          branch_name=${{ github.event.pull_request }}
+          echo "$ dshfkjasdfhkasdfhksadhf"
           if [[ $branch_name =~ (major|minor|patch)[\/:\s].+ ]]; then
             echo "Branch name contains 'major', 'minor', or 'patch' followed by a delimiter and some text. Proceeding with release draft update."
           else
