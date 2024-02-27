@@ -34,7 +34,7 @@ jobs:
       - name: Check branch name
         run: |
           branch_name=${{ github.event.pull_request }}
-          echo "$branch_name dshfkjasdfhkasdfhksadhf"
+          echo "${{ toJson(github.event.pull_request) }} fasdfafasfasdfas"
           if [[ $branch_name =~ (major|minor|patch)[\/:\s].+ ]]; then
             echo "Branch name contains 'major', 'minor', or 'patch' followed by a delimiter and some text. Proceeding with release draft update."
           else
