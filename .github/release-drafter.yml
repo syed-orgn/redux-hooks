@@ -53,8 +53,8 @@ template: |
   <!-- Optional: add a release summary here -->
   $CHANGES
 
-header: $CHANGES $CONTRIBUTORS $PREVIOUS_TAG $REPOSITORY $OWNER
-footer: $CHANGES $CONTRIBUTORS $PREVIOUS_TAG $REPOSITORY $OWNER
+header: This Is A Header
+footer: This Is A Footer
 
 
 autolabeler:
