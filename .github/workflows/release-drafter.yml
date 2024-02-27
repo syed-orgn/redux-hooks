@@ -36,6 +36,7 @@ jobs:
           if [[ ${{ github.ref }} == refs/heads/* ]]; then
             branch_name=${{ github.ref }}
             branch_name=${branch_name#refs/heads/}
+            echo "$branch_name BRANCH NAME"
             if [[ $branch_name =~ (major|minor|patch)[\/:\s].+ ]]; then
               echo "Branch name contains 'major', 'minor', or 'patch'. Proceeding with release draft update."
             else
