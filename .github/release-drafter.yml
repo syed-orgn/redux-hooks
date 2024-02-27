@@ -53,7 +53,8 @@ template: |
   <!-- Optional: add a release summary here -->
   $CHANGES
 
-header: $REPOSITORY released this
+header: "$REPOSITORY released this {{ now | date('short') }}"
+
 footer: This Is A Footer
 
 
