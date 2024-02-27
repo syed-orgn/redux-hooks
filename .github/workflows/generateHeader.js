@@ -1,19 +1,18 @@
-function formatTimeAgo(date) {
+// Add this code as a separate script file (e.g., calculate-relative-time.js)
+function calculateRelativeTime(releaseTime) {
     const now = new Date();
-    const diffMs = now - date;
-
-    // Convert milliseconds to minutes
-    const diffMins = Math.round(diffMs / (1000 * 60));
-
-    if (diffMins === 0) {
-        return 'just now';
-    } else if (diffMins === 1) {
-        return '1 min ago';
+    const diffMs = now - releaseTime;
+    const minutes = Math.round(diffMs / (1000 * 60));
+  
+    if (minutes < 1) {
+      return "just now";
+    } else if (minutes < 60) {
+      return `${minutes} mins ago`;
+    } else if (minutes < 120) {
+      return "1 hour ago";
     } else {
-        return diffMins + ' mins ago';
+      // Handle other time ranges as needed
+      return `${Math.floor(minutes / 60)} hours ago`;
     }
-}
-
-const timestamp = new Date();
-
-module.exports = ` released this ${formatTimeAgo(timestamp)}`;
+  }
+  
