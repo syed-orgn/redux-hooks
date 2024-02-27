@@ -48,10 +48,13 @@ categories:
 exclude-labels:
   - skip-changelog
   - invalid
-change-template: '- #$NUMBER: thanks @$AUTHOR - $TITLE'
+change-template: '- #$NUMBER: thanks @$AUTHOR - $TITLE Body-> $BODY URL-> $URL BASE_REF_NAME-> $BASE_REF_NAME HEAD_REF_NAME-> $HEAD_REF_NAME '
 template: |
   <!-- Optional: add a release summary here -->
   $CHANGES
+
+header: $CHANGES $CONTRIBUTORS $PREVIOUS_TAG $REPOSITORY $OWNER
+footer: $CHANGES $CONTRIBUTORS $PREVIOUS_TAG $REPOSITORY $OWNER
 
 
 autolabeler:
