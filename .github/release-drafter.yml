@@ -20,10 +20,9 @@ categories:
   - title: 🚀 New features and improvements
     labels:
       - minor
-      - 'minor'
   - title: 🐛 Bug fixes
     labels:
-      - bug
+      - patch
   - title: 📝 Documentation updates
     labels:
       - documentation
@@ -61,15 +60,18 @@ autolabeler:
       - '*.md'
     branch:
       - '/docs{0,1}\/.+/'
-  - label: 'bug'
+
+  - label: 'major'
     branch:
-      - '/fix\/.+/'
-    title:
-      - '/fix/i'
+      - '/major\/.+/'
+
   - label: 'minor'
     branch:
       - '/feature\/.+/'
 
+  - label: 'patch'
+    branch:
+      - '/fix\/.+/'
 
 
 name-template: '@reduxhooks/$RESOLVED_VERSION'
