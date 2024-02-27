@@ -47,7 +47,7 @@ jobs:
           # header_text=$(../../generateHeader.js $release_time)
           # echo "RELEASE_TIME=$header_text" >> $GITHUB_ENV
 
-          echo "pwd $pwd LS-command ls -d"
+          echo `pwd $(pwd) LS-command ls -d`
 
       - uses: release-drafter/release-drafter@v5
         # (Optional) specify config name to use, relative to .github/. Default: release-drafter.yml
