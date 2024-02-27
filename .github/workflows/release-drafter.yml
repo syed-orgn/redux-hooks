@@ -33,14 +33,14 @@ jobs:
       # Drafts your next Release notes as Pull Requests are merged into "master"
       - name: Check branch name
         run: |
-          branch_name=${{ github.event.pull_request }}
-          echo "${{ toJson(github.event.pull_request) }} fasdfafasfasdfas"
+          branch_name=${{ toJson(github.event.pull_request.head.ref) }}
+          echo "${{ toJson(github.event.pull_request.head.ref) }} fasdfafasfasdfas $branch_name"
           if [[ $branch_name =~ (major|minor|patch)[\/:\s].+ ]]; then
             echo "Branch name contains 'major', 'minor', or 'patch' followed by a delimiter and some text. Proceeding with release draft update."
           else
             echo "Branch name does not match the required pattern. Skipping release draft update."
             exit 1
-          fi
+          fi${{ toJson(github.event.pull_request.head.ref) }}
       # Drafts your next Release notes as Pull Requests are merged into "master"
       - uses: release-drafter/release-drafter@v5
         # (Optional) specify config name to use, relative to .github/. Default: release-drafter.yml
