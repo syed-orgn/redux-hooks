@@ -48,12 +48,12 @@ categories:
 exclude-labels:
   - skip-changelog
   - invalid
-change-template: '- #$NUMBER: thanks @$AUTHOR - $TITLE Body-> $BODY URL-> $URL BASE_REF_NAME-> $BASE_REF_NAME HEAD_REF_NAME-> $HEAD_REF_NAME '
+change-template: '- #$NUMBER: thanks @$AUTHOR - $TITLE'
 template: |
   <!-- Optional: add a release summary here -->
   $CHANGES
 
-header: This Is A Header
+header: $REPOSITORY released this
 footer: This Is A Footer
 
 
