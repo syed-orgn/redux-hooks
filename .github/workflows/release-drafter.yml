@@ -35,12 +35,7 @@ jobs:
         run: |
           # Get the release commit's timestamp
           origin_time=$(git remote -v)
-          echo "origin_time ISSSS $origin_time"
-          # release_commit_sha=$(git rev-parse origin/master^)
-          # release_time=$(git show -s --format=%ci $release_commit_sha)
-
-          # # Calculate and store relative time
-          # echo "RELEASE_TIME=$(generateHeader.js $release_time)" >> $GITHUB_ENV
+          echo "origin_time ISSSS $origin_time" 
 
       - uses: release-drafter/release-drafter@v5
         # (Optional) specify config name to use, relative to .github/. Default: release-drafter.yml
