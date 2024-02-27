@@ -33,21 +33,19 @@ jobs:
       # Drafts your next Release notes as Pull Requests are merged into "master"
       - name: Calculate release time
         run: |
-          # # Get the release commit's timestamp
-          # git clone https://github.com/${{ github.repository }} /tmp/repo
-          # cd /tmp/repo
-          # origin_time=$(git remote -v)
-          # echo "origin_time ISSSS $origin_time" 
-          # # Get the release commit's timestamp
-          # release_commit_sha=$(git rev-parse origin/master^)
-          # echo "$release_commit_sha TESTING"
-          # release_time=$(git show -s --format=%ci $release_commit_sha)
+          # Get the release commit's timestamp
+          git clone https://github.com/${{ github.repository }} /tmp/repo
+          cd /tmp/repo
+          origin_time=$(git remote -v)
+          echo "origin_time ISSSS $origin_time" 
+          # Get the release commit's timestamp
+          release_commit_sha=$(git rev-parse origin/master^)
+          echo "$release_commit_sha TESTING"
+          release_time=$(git show -s --format=%ci $release_commit_sha)
 
-          # # Calculate and store relative time
-          # header_text=$(../../generateHeader.js $release_time)
-          # echo "RELEASE_TIME=$header_text" >> $GITHUB_ENV
-
-          echo `pwd $(pwd) LS-command ls -d`
+          # Calculate and store relative time
+          header_text=$(/home/runner/work/redux-hooks/redux-hooks/.github/workflows/generateHeader.js $release_time)
+          echo "RELEASE_TIME=$header_text" >> $GITHUB_ENV
 
       - uses: release-drafter/release-drafter@v5
         # (Optional) specify config name to use, relative to .github/. Default: release-drafter.yml
