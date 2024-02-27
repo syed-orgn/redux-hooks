@@ -32,6 +32,7 @@ jobs:
       #    echo "GHE_HOST=${GITHUB_SERVER_URL##https:\/\/}" >> $GITHUB_ENV
       # Drafts your next Release notes as Pull Requests are merged into "master"
       - name: Calculate release time
+        working-directory: .github/workflows
         run: |
           # Get the release commit's timestamp
           git clone https://github.com/${{ github.repository }} /tmp/repo
@@ -44,7 +45,7 @@ jobs:
           release_time=$(git show -s --format=%ci $release_commit_sha)
 
           # Calculate and store relative time
-          header_text=$(/home/runner/work/redux-hooks/.github/workflows/generateHeader.js $release_time)
+          header_text=$(./generateHeader.js $release_time)
           echo "RELEASE_TIME=$header_text" >> $GITHUB_ENV
 
       - uses: release-drafter/release-drafter@v5
