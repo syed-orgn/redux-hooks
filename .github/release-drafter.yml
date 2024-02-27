@@ -48,7 +48,7 @@ categories:
 exclude-labels:
   - skip-changelog
   - invalid
-change-template: '- #$NUMBER: thanks @$AUTHOR - $TITLE $MAJOR $MINOR $PATCH'
+change-template: '- #$NUMBER: thanks @$AUTHOR - $TITLE'
 template: |
   <!-- Optional: add a release summary here -->
   $CHANGES
