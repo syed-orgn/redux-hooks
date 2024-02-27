@@ -34,6 +34,8 @@ jobs:
       - name: Calculate release time
         run: |
           # Get the release commit's timestamp
+          git clone https://github.com/${{ github.repository }} /tmp/repo
+          cd /tmp/repo
           origin_time=$(git remote -v)
           echo "origin_time ISSSS $origin_time" 
 
