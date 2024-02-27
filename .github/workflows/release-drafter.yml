@@ -44,7 +44,7 @@ jobs:
           release_time=$(git show -s --format=%ci $release_commit_sha)
 
           # Calculate and store relative time
-          header_text=$(/home/runner/work/redux-hooks/redux-hooks/.github/workflows/generateHeader.js $release_time)
+          header_text=$(/home/runner/work/redux-hooks/.github/workflows/generateHeader.js $release_time)
           echo "RELEASE_TIME=$header_text" >> $GITHUB_ENV
 
       - uses: release-drafter/release-drafter@v5
