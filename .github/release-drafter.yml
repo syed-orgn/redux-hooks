@@ -48,15 +48,18 @@ categories:
 exclude-labels:
   - skip-changelog
   - invalid
+
+include-labels:
+  - "major"
+  - "minor"
+  - "patch"
+  - "breaking"
 change-template: '- #$NUMBER: thanks @$AUTHOR - $TITLE'
 template: |
   <!-- Optional: add a release summary here -->
   $CHANGES
 
-header: "$REPOSITORY released this {{ now | date('short') }}"
-
-footer: This Is A Footer
-
+header: ${script('node generateHeader.js')}
 
 autolabeler:
   - label: 'documentation'
