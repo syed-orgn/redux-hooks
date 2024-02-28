@@ -19,11 +19,11 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      - name: Check Conditons
-        run: |
-          # TEST=github.event.pull_request.merged == true && (startsWith(github.event.pull_request.head.ref, 'major/') || startsWith(github.event.pull_request.head.ref, 'minor/') || startsWith(github.event.pull_request.head.ref, 'patch/'))
-          # echo "TEST ${TEST}"
-          echo "Other Conditons ${{github.event.pull_request.head.ref}}"
+      # - name: Check Conditons
+      #   run: |
+      #     # TEST=github.event.pull_request.merged == true && (startsWith(github.event.pull_request.head.ref, 'major/') || startsWith(github.event.pull_request.head.ref, 'minor/') || startsWith(github.event.pull_request.head.ref, 'patch/'))
+      #     # echo "TEST ${TEST}"
+      #     echo "Other Conditons ${{github.event.pull_request.head.ref}}"
       # (Optional) GitHub Enterprise requires GHE_HOST variable set
       #- name: Set GHE_HOST
       #  run: |
