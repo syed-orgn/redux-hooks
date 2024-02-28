@@ -73,17 +73,17 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Get commit information Before
-        id: commit_info
+        id: commit_info_before
         run: |
           # Use GitHub's REST API to fetch information about a specific commit
-          COMMIT_INFO=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          COMMIT_INFO_BEFORE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                         https://api.github.com/repos/${{ github.repository }}/commits/05a97a6181df6fa5c669b853d2aaef127f7cc196)
-          echo "$COMMIT_INFO Before"
+          echo "$COMMIT_INFO_BEFORE Before"
 
       - name: Get commit information After
-        id: commit_info
+        id: commit_info_after
         run: |
           # Use GitHub's REST API to fetch information about a specific commit
-          COMMIT_INFO=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          COMMIT_INFO_AFTER=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                         https://api.github.com/repos/${{ github.repository }}/commits/1e81af298150c0ad0269f8442d59d7996c6429c1)
-          echo "$COMMIT_INFO After"
+          echo "$COMMIT_INFO_AFTER After"
