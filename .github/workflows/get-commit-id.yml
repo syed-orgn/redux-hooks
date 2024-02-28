@@ -8,7 +8,8 @@ on:
     types: [opened, reopened, synchronize]
 
 permissions:
-  contents: read
+    contents: write
+    pull-requests: write
 
 jobs:
 
@@ -17,18 +18,22 @@ jobs:
       contents: write
       pull-requests: write
     runs-on: ubuntu-latest
-    env:
-      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     steps:
+      - name: Check Current Directory
+        run: pwd
+
       - name: Get Commit Id
         run: |
           echo "Action Ran"
           echo "ACTION_STATE=yellow" >> $GITHUB_ENV
 
-      - name: Modify Change Template
-        run: sed -i "s/\$NUMBER/\$NUMBER (\$ACTION_STATE)/g" release-drafter.yml
+      - name: Preprocess Configuration
+        run: |
+          sed "s/\$NUMBER/\$NUMBER (\$ACTION_STATE)/g" path/to/release-drafter.yml > processed-release-drafter.yml
 
       - name: Run Release Drafter
         uses: release-drafter/release-drafter@v5
+        with:
+          config-name: processed-release-drafter.yml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
