@@ -76,19 +76,17 @@ jobs:
           if [ -f "$HOME/CACHED_BRANCH_NAME.txt" ]; then
             # If cached, read the branch name from the cache file
             CACHED_BRANCH_NAME=$(cat "$HOME/CACHED_BRANCH_NAME.txt")
-            echo "::set-output name=cached_branch_name::$CACHED_BRANCH_NAME"
           else
             # If not cached, extract the branch name from the pull request event and cache it
             BRANCH_NAME=${{ github.event.pull_request.head.ref }}
-            echo "$BRANCH_NAME" > "$HOME/CACHED_BRANCH_NAME.txt"
-            echo "::set-output name=cached_branch_name::$BRANCH_NAME"
+            echo "CACHED_BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
           fi
 
       - name: Draft release notes
         run: |
-          # Retrieve the cached branch name
-          CACHED_BRANCH_NAME="${{ steps.cache_branch_name.outputs.cached_branch_name }}"
-          echo "Cached branch name: $CACHED_BRANCH_NAME other-> ${{ steps.cache_branch_name.outputs }} -> ${{ steps.cache_branch_name }} -> ${{ steps }}"
+          # Retrieve the cached branch name from the environment
+          CACHED_BRANCH_NAME="${{ env.CACHED_BRANCH_NAME }}"
+          echo "Cached branch name: $CACHED_BRANCH_NAME"
 
           # Use the cached branch name as needed
           if [[ $CACHED_BRANCH_NAME =~ (major|minor|patch)[\/:\s].+ ]]; then
