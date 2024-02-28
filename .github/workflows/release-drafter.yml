@@ -1,22 +1,10 @@
 name: Release Drafter
 
 on:
-  # push:
-  #   # branches to consider in the event; optional, defaults to all
-  #   branches:
-  #     - master
-  # pull_request event is required only for autolabeler
   pull_request:
-    # Only following types are handled by the action, but one can default to all as well
     types: [closed]
     branches:
-      - 'major/**'
-      - 'minor/**'
-      - 'patch/**'
-      
-  # pull_request_target event is required for autolabeler to support PRs from forks
-  # pull_request_target:
-  #   types: [opened, reopened, synchronize]
+      - 'master'
 
 permissions:
   contents: read
@@ -29,6 +17,7 @@ jobs:
       # write permission is required for autolabeler
       # otherwise, read permission is required at least
       pull-requests: write
+    if: github.event.pull_request.merged == true && (startsWith(github.event.pull_request.head.ref, 'major/') || startsWith(github.event.pull_request.head.ref, 'minor/') || startsWith(github.event.pull_request.head.ref, 'patch/'))
     runs-on: ubuntu-latest
     steps:
       # (Optional) GitHub Enterprise requires GHE_HOST variable set
