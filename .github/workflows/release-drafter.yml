@@ -85,7 +85,7 @@ jobs:
       - name: Draft release notes
         run: |
           # Retrieve the cached branch name from the environment
-          labels=${{ toJson(github.event) }}
+          echo "${{ toJson(github.event.base.label) }} fasdfafasfasdfasdfasfasf1 ${{ toJson(github.event.base) }}"
           echo "LABELS12 $labels"
           CACHED_BRANCH_NAME="${{ env.CACHED_BRANCH_NAME }}"
           echo "Cached branch name: $CACHED_BRANCH_NAME"
