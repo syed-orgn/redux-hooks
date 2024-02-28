@@ -9,7 +9,6 @@ version-resolver:
   patch:
     labels:
       - 'patch'
-  default: major
 
 # Emoji reference: https://gitmoji.carloscuesta.me/
 categories:
@@ -59,8 +58,6 @@ template: |
   <!-- Optional: add a release summary here -->
   $CHANGES
 
-header: $REPOSITORY released this
-
 autolabeler:
   - label: 'documentation'
     files:
@@ -74,11 +71,11 @@ autolabeler:
 
   - label: 'minor'
     branch:
-      - '/feature\/.+/'
+      - '/minor\/.+/'
 
   - label: 'patch'
     branch:
-      - '/fix\/.+/'
+      - '/patch\/.+/'
 
 
 name-template: '@reduxhooks/$RESOLVED_VERSION'
