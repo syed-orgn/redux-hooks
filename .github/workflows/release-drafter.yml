@@ -26,7 +26,9 @@ jobs:
       # Fetch commit ID
       - name: Get commit ID
         id: commit
-        run: echo "::set-env name=COMMIT_ID::$(git log --format='%H' -n 1)"
+        run: |
+         echo "action_state=yellow" >> "$GITHUB_ENV"
+         echo "::set-env name=COMMIT_ID::$(git log --format='%H' -n 1)"
 
       # Drafts your next Release notes as Pull Requests are merged into "master"
       - name: Run Release Drafter
