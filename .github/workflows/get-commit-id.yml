@@ -1,4 +1,4 @@
-name: Get Commit ID
+name: Release Drafter
 
 on:
   push:
@@ -17,15 +17,18 @@ jobs:
       contents: write
       pull-requests: write
     runs-on: ubuntu-latest
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     steps:
       - name: Get Commit Id
         run: |
           echo "Action Ran"
-          echo "action_state=yellow" >> $GITHUB_ENV
-          echo "${{ env.action_state }} COMMIT ID"
+          echo "ACTION_STATE=yellow" >> $GITHUB_ENV
+
+      - name: Modify Change Template
+        run: sed -i "s/\$NUMBER/\$NUMBER (\$ACTION_STATE)/g" release-drafter.yml
 
       - name: Run Release Drafter
         uses: release-drafter/release-drafter@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ACTION_STATE: this is text
