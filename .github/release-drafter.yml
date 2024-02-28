@@ -53,7 +53,7 @@ include-labels:
   - "minor"
   - "patch"
   - "breaking"
-change-template: '- #$NUMBER ${COMMIT} thanks @$AUTHOR - $TITLE'
+change-template: '- #$NUMBER $COMMIT thanks @$AUTHOR - $TITLE'
 template: |
   <!-- Optional: add a release summary here -->
   $CHANGES
