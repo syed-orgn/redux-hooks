@@ -22,7 +22,7 @@ jobs:
       - name: Check Current Directory
         run: |
           pwd
-          cd .github/workflows
+          cd ..
           pwd
           ls -l
 
@@ -33,7 +33,7 @@ jobs:
 
       - name: Preprocess Configuration
         run: |
-          sed "s/\$NUMBER/\$NUMBER (\$ACTION_STATE)/g" ../../release-drafter.yml > processed-release-drafter.yml
+          sed "s/\$NUMBER/\$NUMBER (\$ACTION_STATE)/g" ../../../release-drafter.yml > processed-release-drafter.yml
 
       - name: Run Release Drafter
         uses: release-drafter/release-drafter@v5
