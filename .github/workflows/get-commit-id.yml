@@ -1,17 +1,11 @@
-name: Release Drafter
+name: Get Commit ID
 
 on:
   push:
-    # branches to consider in the event; optional, defaults to all
     branches:
       - master
-  # pull_request event is required only for autolabeler
   pull_request:
-    # Only following types are handled by the action, but one can default to all as well
     types: [opened, reopened, synchronize]
-  # pull_request_target event is required for autolabeler to support PRs from forks
-  # pull_request_target:
-  #   types: [opened, reopened, synchronize]
 
 permissions:
   contents: read
@@ -20,14 +14,18 @@ jobs:
 
   fetch_commit_id:
     permissions:
-      # write permission is required to create a github release
       contents: write
-      # write permission is required for autolabeler
-      # otherwise, read permission is required at least
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-     - name: Get Commit Id
-       run: |
-        echo "Action Ran"
-        echo "action_state=yellow" >> "$GITHUB_ENV"
+      - name: Get Commit Id
+        run: |
+          echo "Action Ran"
+          echo "action_state=yellow" >> $GITHUB_ENV
+          echo "${{ env.action_state }} COMMIT ID"
+
+      - name: Run Release Drafter
+        uses: release-drafter/release-drafter@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACTION_STATE: ${{ env.action_state }}
