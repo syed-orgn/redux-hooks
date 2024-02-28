@@ -88,7 +88,7 @@ jobs:
         run: |
           # Retrieve the cached branch name
           CACHED_BRANCH_NAME="${{ steps.cache_branch_name.outputs.cached_branch_name }}"
-          echo "Cached branch name: $CACHED_BRANCH_NAME"
+          echo "Cached branch name: $CACHED_BRANCH_NAME other-> ${{ steps.cache_branch_name.outputs }} -> ${{ steps.cache_branch_name }} -> ${{ steps }}"
 
           # Use the cached branch name as needed
           if [[ $CACHED_BRANCH_NAME =~ (major|minor|patch)[\/:\s].+ ]]; then
