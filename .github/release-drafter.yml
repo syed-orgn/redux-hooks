@@ -9,7 +9,6 @@ version-resolver:
   patch:
     labels:
       - 'patch'
-  default: major
 
 # Emoji reference: https://gitmoji.carloscuesta.me/
 categories:
