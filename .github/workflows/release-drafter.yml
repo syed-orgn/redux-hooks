@@ -53,10 +53,11 @@
 name: Release Drafter Test
 
 on:
-  pull_request:
-    types: [opened, reopened, synchronize]
+  push:
     branches:
       - master
+  pull_request:
+    types: [opened, reopened, synchronize]
 
 permissions:
   contents: read
