@@ -63,41 +63,29 @@ permissions:
   contents: read
 
 jobs:
-  update_release_draft:
-    permissions:
-      contents: write
-      pull-requests: write
+  get_labels:
+    permissions: 
+          contents: write 
+          pull-requests: write      
     runs-on: ubuntu-latest
     steps:
-      - name: Check branch name and cache it
-        id: cache_branch_name
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Get labels
+        id: get_labels
         run: |
-          # Check if the branch name is already cached
-          if [ -f "$HOME/CACHED_BRANCH_NAME.txt" ]; then
-            # If cached, read the branch name from the cache file
-            CACHED_BRANCH_NAME=$(cat "$HOME/CACHED_BRANCH_NAME.txt")
-          else
-            # If not cached, extract the branch name from the pull request event and cache it
-            BRANCH_NAME=${{ github.event.pull_request.head.ref }}
-            echo "CACHED_BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
-          fi
+          # Use GitHub's REST API to fetch labels for a specific issue or pull request
+          LABELS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+                    https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels)
+          echo "::set-output name=labels::$LABELS"
+          echo "Labels: $LABELS"
 
-      - name: Draft release notes
+      - name: Parse labels
         run: |
-          # Retrieve the cached branch name from the environment
-          echo "${{ toJson(github.event.base.label) }} fasdfafasfasdfasdfasfasf1 ${{ toJson(github.event.base) }}"
-          echo "LABELS12 $labels"
-          CACHED_BRANCH_NAME="${{ env.CACHED_BRANCH_NAME }}"
-          echo "Cached branch name: $CACHED_BRANCH_NAME"
+          # Parse labels from the JSON output
+          LABELS="${{ steps.get_labels.outputs.labels }}"
+          echo "Labels: $LABELS"
 
-          # Use the cached branch name as needed
-          if [[ $CACHED_BRANCH_NAME =~ (major|minor|patch)[\/:\s].+ ]]; then
-            echo "Branch name contains 'major', 'minor', or 'patch' followed by a delimiter and some text. Proceeding with release draft update."
-          else
-            echo "Branch name does not match the required pattern. Skipping release draft update."
-            exit 1
-          fi
-
-      - uses: release-drafter/release-drafter@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Use JavaScript to parse the labels
+          node -e "const labels = JSON.parse(process.env.LABELS); console.log('Labels VIA JS:', labels);"
