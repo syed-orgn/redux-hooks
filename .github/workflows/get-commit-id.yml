@@ -24,7 +24,7 @@ jobs:
           pwd
           ls -l
           cd ..
-          pwd
+          cd runner
           ls -l
 
       - name: Get Commit Id
