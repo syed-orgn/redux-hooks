@@ -8,8 +8,7 @@ on:
     types: [opened, reopened, synchronize]
 
 permissions:
-    contents: write
-    pull-requests: write
+  contents: read
 
 jobs:
 
@@ -23,10 +22,7 @@ jobs:
         run: |
           pwd
           ls -l
-          cd ..
-          cd 'runner'
-          ls -l
-
+          
       - name: Get Commit Id
         run: |
           echo "Action Ran"
@@ -34,11 +30,11 @@ jobs:
 
       - name: Preprocess Configuration
         run: |
-          sed "s/\$NUMBER/\$NUMBER (\$ACTION_STATE)/g" ../../../release-drafter.yml > processed-release-drafter.yml
+          sed "s/\$NUMBER/\$NUMBER (\$ACTION_STATE)/g" .github/release-drafter.yml > release-drafter.yml
 
       - name: Run Release Drafter
         uses: release-drafter/release-drafter@v5
         with:
-          config-name: processed-release-drafter.yml
+          config-name: .github/release-drafter.yml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
