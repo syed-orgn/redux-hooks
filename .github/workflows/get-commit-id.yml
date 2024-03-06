@@ -1,40 +1,38 @@
-# name: Release Drafter
+name: Release Drafter
 
-# on:
-#   push:
-#     branches:
-#       - master
-#   pull_request:
-#     types: [opened, reopened, synchronize]
+on:
+  push:
+    branches:
+      - main
 
-# permissions:
-#   contents: read
+permissions:
+  contents: read
 
-# jobs:
+jobs:
 
-#   fetch_commit_id:
-#     permissions:
-#       contents: write
-#       pull-requests: write
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Check Current Directory
-#         run: |
-#           pwd
-#           ls -l
+  fetch_commit_id:
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Current Directory
+        run: |
+          pwd
+          ls -l
           
-#       - name: Get Commit Id
-#         run: |
-#           echo "Action Ran"
-#           echo "ACTION_STATE=yellow" >> $GITHUB_ENV
+      - name: Get Commit Id
+        run: |
+          echo "Action Ran"
+          echo "ACTION_STATE=yellow" >> $GITHUB_ENV
 
-#       - name: Preprocess Configuration
-#         run: |
-#           sed "s/\$NUMBER/\$NUMBER (\$ACTION_STATE)/g" .github/release-drafter.yml > release-drafter.yml
+      - name: Preprocess Configuration
+        run: |
+          sed "s/\$NUMBER/\$NUMBER (\$ACTION_STATE)/g" .github/release-drafter.yml > release-drafter.yml
 
-#       - name: Run Release Drafter
-#         uses: release-drafter/release-drafter@v5
-#         with:
-#           config-name: .github/release-drafter.yml
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run Release Drafter
+        uses: release-drafter/release-drafter@v5
+        with:
+          config-name: .github/release-drafter.yml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
