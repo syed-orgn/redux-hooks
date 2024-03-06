@@ -23,7 +23,6 @@ categories:
   - title: 🐛 Bug fixes
     labels:
       - patch
-    collapse-after: 5
   - title: 📝 Documentation updates
     labels:
       - documentation
